@@ -3,6 +3,8 @@ import GoalList from './components/GoalList';
 import DepositForm from './components/DepositForm';
 import NewGoalForm from './components/NewGoalForm';
 import Filter from './components/Filter'; 
+import GoalOverview from './components/GoalOverview';
+import NavBar from './components/NavBar';
 
 function App() {
   const [goals, setGoals] = useState([]);
@@ -81,6 +83,7 @@ function App() {
 
   return (
     <div className="App">
+       <NavBar />
       <h1>Smart Goal Planner</h1>
 
       <NewGoalForm onAddGoal={addGoal} />
@@ -97,6 +100,7 @@ function App() {
           onClose={closeDepositForm}
         />
       )}
+      <GoalOverview goals={goals} />
 
       <GoalList
         goals={filteredGoals}
