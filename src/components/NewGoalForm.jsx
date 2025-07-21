@@ -87,3 +87,4 @@ function NewGoalForm({ onAddGoal }) {
 }
 
 export default NewGoalForm;
+

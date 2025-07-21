@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import GoalList from './components/GoalList';
 import DepositForm from './components/DepositForm';
 import NewGoalForm from './components/NewGoalForm';
+import Filter from './components/Filter'; 
 
 function App() {
   const [goals, setGoals] = useState([]);
   const [showDepositForm, setShowDepositForm] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:3001/goals')
       .then(res => res.json())
       .then(data => {
-        console.log('Fetched goals:', data);
         setGoals(data);
       })
       .catch(err => console.error('Error fetching goals:', err));
@@ -74,11 +75,20 @@ function App() {
     alert(`Edit not implemented yet for goal ID: ${id}`);
   };
 
+  const filteredGoals = selectedCategory
+    ? goals.filter(goal => goal.category === selectedCategory)
+    : goals;
+
   return (
     <div className="App">
       <h1>Smart Goal Planner</h1>
 
       <NewGoalForm onAddGoal={addGoal} />
+
+      <Filter
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
 
       {showDepositForm && selectedGoal && (
         <DepositForm
@@ -89,7 +99,7 @@ function App() {
       )}
 
       <GoalList
-        goals={goals}
+        goals={filteredGoals}
         onDelete={handleDelete}
         onEdit={handleEdit}
         onDeposit={openDepositForm}
