@@ -1,53 +1,91 @@
 import React, { useEffect, useState } from 'react';
 import GoalList from './components/GoalList';
-import axios from 'axios';
+import DepositForm from './components/DepositForm'; // Optional if you use it
 
 function App() {
   const [goals, setGoals] = useState([]);
+  const [showDepositForm, setShowDepositForm] = useState(false);
+  const [selectedGoal, setSelectedGoal] = useState(null);
 
-  // Fetch data from your json-server when the component mounts
+  // Fetch goals from json-server on mount
   useEffect(() => {
-    axios.get('http://localhost:3000/goals')
-      .then(response => setGoals(response.data))
-      .catch(error => console.error('Error fetching goals:', error));
+    fetch('http://localhost:3001/goals')
+      .then(res => res.json())
+      .then(data => {
+        console.log('Fetched goals:', data);  // For debugging
+        setGoals(data);
+      })
+      .catch(err => console.error('Error fetching goals:', err));
   }, []);
 
-  // Delete a goal
+  // Delete goal by id
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/goals/${id}`)
-      .then(() => setGoals(goals.filter(goal => goal.id !== id)))
-      .catch(error => console.error('Error deleting goal:', error));
+    fetch(`http://localhost:3001/goals/${id}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        setGoals(prev => prev.filter(goal => goal.id !== id));
+      })
+      .catch(err => console.error('Error deleting goal:', err));
   };
 
-  const handleEdit = (id) => {
-    console.log('Edit goal with id:', id);
+  // Open deposit form for a selected goal
+  const openDepositForm = (goal) => {
+    setSelectedGoal(goal);
+    setShowDepositForm(true);
   };
 
-  // Deposit handler — increases amountSaved by 5000
-  const handleDeposit = (id) => {
-    const goal = goals.find(g => g.id === id);
-    if (!goal) return;
+  // Close deposit form modal
+  const closeDepositForm = () => {
+    setShowDepositForm(false);
+    setSelectedGoal(null);
+  };
+
+  // Deposit money into goal
+  const handleDeposit = (id, amount) => {
+    const goalToUpdate = goals.find(goal => goal.id === id);
+    if (!goalToUpdate) return;
 
     const updatedGoal = {
-      ...goal,
-      amountSaved: goal.amountSaved + 5000
+      ...goalToUpdate,
+      amountSaved: goalToUpdate.amountSaved + amount,
     };
 
-    axios.put(`http://localhost:3000/goals/${id}`, updatedGoal)
-      .then(() => {
-        setGoals(goals.map(g => g.id === id ? updatedGoal : g));
+    fetch(`http://localhost:3001/goals/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amountSaved: updatedGoal.amountSaved }),
+    })
+      .then(res => res.json())
+      .then(updated => {
+        setGoals(prev => prev.map(g => (g.id === id ? updated : g)));
+        closeDepositForm();
       })
-      .catch(error => console.error('Error updating goal:', error));
+      .catch(err => console.error('Error updating goal:', err));
+  };
+
+  // Stub for edit (expand later)
+  const handleEdit = (id) => {
+    alert(`Edit not implemented yet for goal id: ${id}`);
   };
 
   return (
     <div className="App">
       <h1>Smart Goal Planner</h1>
+
+      {showDepositForm && selectedGoal && (
+        <DepositForm
+          goal={selectedGoal}
+          onDeposit={handleDeposit}
+          onClose={closeDepositForm}
+        />
+      )}
+
       <GoalList
         goals={goals}
         onDelete={handleDelete}
         onEdit={handleEdit}
-        onDeposit={handleDeposit}
+        onDeposit={openDepositForm}  // opens deposit form modal
       />
     </div>
   );

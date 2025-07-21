@@ -7,7 +7,7 @@ function GoalList({goals, onDelete, onEdit, onDeposit}){
 
     return(
         <div>
-            <h2>Your Finacial Goals</h2>
+            <h2>Your Financial Goals</h2>
             <ul className="mygoal-list">
                 {goals.map((goal) => (
                     <GoalItem
