@@ -1,0 +1,1 @@
+//allow the users to deposit money into a specific goal
