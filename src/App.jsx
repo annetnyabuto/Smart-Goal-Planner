@@ -6,6 +6,7 @@ import EditGoalForm from './components/EditGoalForm';
 import Filter from './components/Filter'; 
 import GoalOverview from './components/GoalOverview';
 import NavBar from './components/NavBar';
+import { getGoals, addGoal as addGoalToStorage, updateGoal, deleteGoal as deleteGoalFromStorage } from './utils/storage';
 import './App.css';
 
 function App() {
@@ -21,55 +22,34 @@ function App() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/goals')
-      .then(res => res.json())
-      .then(data => {
-        setGoals(data);
-        setError('');
-      })
-      .catch(err => {
-        console.error('Error fetching goals:', err);
-        setError('Failed to load goals. Please try again later.');
-      });
+    try {
+      const data = getGoals();
+      setGoals(data);
+      setError('');
+    } catch (err) {
+      console.error('Error loading goals:', err);
+      setError('Failed to load goals. Please try again later.');
+    }
   }, []);
 
   const addGoal = (newGoal) => {
-    const newId = String(Math.max(...goals.map(g => parseInt(g.id)), 0) + 1);
-    
-    const goalToAdd = { 
-      id: newId,
-      ...newGoal, 
-      savedAmount: 0,
-      createdAt: new Date().toISOString().split('T')[0]
-    };
-    
-    fetch('http://localhost:3001/goals', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(goalToAdd),
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Failed to add goal: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then(addedGoal => {
-        setGoals(prev => [...prev, addedGoal]);
-        setError('');
-      })
-      .catch(err => {
-        console.error('Error adding goal:', err);
-        setError('Failed to add goal. Please try again.');
-      });
+    try {
+      const addedGoal = addGoalToStorage(newGoal);
+      setGoals(prev => [...prev, addedGoal]);
+      setError('');
+    } catch (err) {
+      console.error('Error adding goal:', err);
+      setError('Failed to add goal. Please try again.');
+    }
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3001/goals/${id}`, {
-      method: 'DELETE',
-    })
-      .then(() => setGoals(prev => prev.filter(goal => goal.id !== id)))
-      .catch(err => console.error('Error deleting goal:', err));
+    try {
+      deleteGoalFromStorage(id);
+      setGoals(prev => prev.filter(goal => goal.id !== id));
+    } catch (err) {
+      console.error('Error deleting goal:', err);
+    }
   };
 
   const openDepositForm = (goal) => {
@@ -89,29 +69,18 @@ function App() {
       return;
     }
     
-    const currentAmount = Number(goalToUpdate.savedAmount) || 0;
-    const depositAmount = Number(amount);
-    const newAmount = currentAmount + depositAmount;
-    fetch(`http://localhost:3001/goals/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ savedAmount: newAmount }),
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Failed to update goal: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then(updated => {
-        setGoals(prev => prev.map(g => (g.id === id ? updated : g)));
-        closeDepositForm();
-        setError('');
-      })
-      .catch(err => {
-        console.error('Error depositing:', err);
-        setError('Failed to make deposit. Please try again.');
-      });
+    try {
+      const currentAmount = Number(goalToUpdate.savedAmount) || 0;
+      const depositAmount = Number(amount);
+      const newAmount = currentAmount + depositAmount;
+      const updated = updateGoal(id, { savedAmount: newAmount });
+      setGoals(prev => prev.map(g => (g.id === id ? updated : g)));
+      closeDepositForm();
+      setError('');
+    } catch (err) {
+      console.error('Error depositing:', err);
+      setError('Failed to make deposit. Please try again.');
+    }
   };
 
   const handleEdit = (id) => {
@@ -128,17 +97,13 @@ function App() {
   };
   
   const saveEditedGoal = (editedGoal) => {
-    fetch(`http://localhost:3001/goals/${editedGoal.id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editedGoal),
-    })
-      .then(res => res.json())
-      .then(updated => {
-        setGoals(prev => prev.map(g => (g.id === editedGoal.id ? updated : g)));
-        closeEditForm();
-      })
-      .catch(err => console.error('Error updating goal:', err));
+    try {
+      const updated = updateGoal(editedGoal.id, editedGoal);
+      setGoals(prev => prev.map(g => (g.id === editedGoal.id ? updated : g)));
+      closeEditForm();
+    } catch (err) {
+      console.error('Error updating goal:', err);
+    }
   };
 
   // Filter and sort goals
