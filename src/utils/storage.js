@@ -29,6 +29,80 @@ const initialGoals = [
     category: "Electronics",
     deadline: "2024-07-20",
     createdAt: "2024-03-10"
+  },
+  {
+    "id": "4",
+    "name": "Down Payment - House",
+    "targetAmount": 50000,
+    "savedAmount": 12000,
+    "category": "Real Estate",
+    "deadline": "2027-12-31",
+    "createdAt": "2024-02-01"
+  },
+  {
+    "id": "5",
+    "name": "Car Maintenance",
+    "targetAmount": 800,
+    "savedAmount": 600,
+    "category": "Vehicle",
+    "deadline": "2025-09-15",
+    "createdAt": "2024-06-01"
+  },
+  {
+    "id": "6",
+    "name": "Education Fund",
+    "targetAmount": 20000,
+    "savedAmount": 5000,
+    "category": "Education",
+    "deadline": "2028-01-01",
+    "createdAt": "2024-04-20"
+  },
+  {
+    "id": "7",
+    "name": "Holiday Gifts",
+    "targetAmount": 1000,
+    "savedAmount": 300,
+    "category": "Shopping",
+    "deadline": "2024-08-10",
+    "createdAt": "2024-07-01"
+  },
+  {
+    "id": "8",
+    "name": "New Phone",
+    "targetAmount": 1200,
+    "savedAmount": 0,
+    "category": "Electronics",
+    "deadline": "2025-01-31",
+    "createdAt": "2024-07-10"
+  },
+  {
+    "id": "9",
+    "name": "Retirement Savings",
+    "targetAmount": 100000,
+    "savedAmount": 15000,
+    "category": "Retirement",
+    "deadline": "2035-01-01",
+    "createdAt": "2023-01-01"
+  },
+  {
+    "id": "10",
+    "name": "Annet",
+    "description": "Buy house",
+    "category": "Real Estate",
+    "targetAmount": 2000000,
+    "deadline": "2025-12-31",
+    "savedAmount": 0,
+    "createdAt": "2025-07-23"
+  },
+  {
+    "id": "13",
+    "name": "buy land",
+    "description": "buy two acre piece of land",
+    "category": "Real Estate",
+    "targetAmount": 3000000,
+    "deadline": "2026-12-01",
+    "savedAmount": 100000,
+    "createdAt": "2025-07-23"
   }
 ];
 
