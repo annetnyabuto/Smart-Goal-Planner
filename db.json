@@ -58,7 +58,7 @@
       "id": "7",
       "name": "Holiday Gifts",
       "targetAmount": 1000,
-      "savedAmount": 200,
+      "savedAmount": 300,
       "category": "Shopping",
       "deadline": "2024-08-10",
       "createdAt": "2024-07-01"
@@ -80,6 +80,26 @@
       "category": "Retirement",
       "deadline": "2035-01-01",
       "createdAt": "2023-01-01"
+    },
+    {
+      "id": "10",
+      "name": "Annet",
+      "description": "Buy house",
+      "category": "Real Estate",
+      "targetAmount": 2000000,
+      "deadline": "2025-12-31",
+      "savedAmount": 0,
+      "createdAt": "2025-07-23"
+    },
+    {
+      "id": "13",
+      "name": "buy land",
+      "description": "buy two acre piece of land",
+      "category": "Real Estate",
+      "targetAmount": 3000000,
+      "deadline": "2026-12-01",
+      "savedAmount": 100000,
+      "createdAt": "2025-07-23"
     }
   ]
 }

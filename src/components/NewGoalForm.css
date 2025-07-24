@@ -1,0 +1,131 @@
+.goal-form-container {
+  background: #e0f7fa; 
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  border-top: 4px solid #00acc1;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.goal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.goal-form h3 {
+  color: #00838f;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.goal-form h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #00acc1;
+  border-radius: 3px;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #00838f; 
+  font-size: 0.9rem;
+}
+
+.goal-form input,
+.goal-form select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  border-left: 3px solid #00acc1; 
+}
+
+.goal-form input:focus,
+.goal-form select:focus {
+  outline: none;
+  border-color: #00acc1; 
+  box-shadow: 0 0 0 3px rgba(0, 172, 193, 0.2);
+  background-color: #f0fcff;
+}
+
+.goal-form input.error,
+.goal-form select.error {
+  border-color: #e74c3c;
+  background-color: #fff8f8;
+}
+
+.form-error {
+  background-color: #fdecea;
+  color: #e74c3c;
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  border-left: 3px solid #e74c3c;
+}
+
+.goal-form button {
+  width: 100%;
+  padding: 1rem;
+  background: #00acc1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.goal-form button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 172, 193, 0.3);
+  background: #00bcd4;
+}
+
+.goal-form button:disabled {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .goal-form-container {
+    padding: 1.5rem;
+  }
+  
+  .goal-form h3 {
+    font-size: 1.5rem;
+  }
+  
+  .goal-form input,
+  .goal-form select,
+  .goal-form button {
+    padding: 0.7rem;
+  }
+}

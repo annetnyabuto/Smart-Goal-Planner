@@ -6,10 +6,12 @@ function DepositForm({ goal, onDeposit, onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const amount = parseFloat(depositAmount);
+    
+    console.log('Submitting deposit:', goal.id, amount);
+    
     if (!isNaN(amount) && amount > 0) {
       onDeposit(goal.id, amount);
       setDepositAmount('');
-      onClose();
     } else {
       alert('Please enter a valid amount.');
     }
@@ -17,7 +19,13 @@ function DepositForm({ goal, onDeposit, onClose }) {
 
   return (
     <div className="deposit-form">
-      <h4>Deposit to: {goal.title}</h4>
+      <h4>Deposit to: {goal.name}</h4>
+      <div className="goal-details">
+        <p><strong>Category:</strong> {goal.category}</p>
+        <p><strong>Target Amount:</strong> KES {goal.targetAmount.toLocaleString()}</p>
+        <p><strong>Current Savings:</strong> KES {goal.savedAmount.toLocaleString()}</p>
+        <p><strong>Remaining:</strong> KES {Math.max(goal.targetAmount - goal.savedAmount, 0).toLocaleString()}</p>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="number"
@@ -27,10 +35,12 @@ function DepositForm({ goal, onDeposit, onClose }) {
           min="1"
           required
         />
-        <button type="submit" disabled={!depositAmount || parseFloat(depositAmount) <= 0}>
-          Deposit
-        </button>
-        <button type="button" onClick={onClose}>Cancel</button>
+        <div className="form-buttons">
+          <button type="submit" disabled={!depositAmount || parseFloat(depositAmount) <= 0}>
+            Deposit
+          </button>
+          <button type="button" onClick={onClose}>Cancel</button>
+        </div>
       </form>
     </div>
   );

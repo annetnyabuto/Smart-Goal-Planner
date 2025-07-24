@@ -3,10 +3,10 @@ import React from "react";
 import GoalItem from './GoalItem'
 
 function GoalList({goals, onDelete, onEdit, onDeposit}){
-    if (!goals || goals.length === 0) return <p>Their are no goals to be shown.</p>;
+    if (!goals || goals.length === 0) return <p>There are no goals to be shown.</p>;
 
     return(
-        <div>
+        <div className="goal-list">
             <h2>Your Financial Goals</h2>
             <ul className="mygoal-list">
                 {goals.map((goal) => (

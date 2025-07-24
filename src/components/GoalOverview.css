@@ -1,0 +1,151 @@
+.goal-overview {
+  background-color: #e0f7fa;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.goal-overview h2 {
+  color: #00838f;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.goal-overview h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #00acc1;
+  border-radius: 3px;
+}
+
+.overview-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-item {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  border-top: 4px solid #00acc1;
+}
+
+.stat-item:nth-child(1) {
+  border-top-color: #3498db;
+  background: linear-gradient(135deg, #ebf3fd 0%, #ffffff 100%);
+}
+
+.stat-item:nth-child(2) {
+  border-top-color: #2ecc71;
+  background: linear-gradient(135deg, #eafaf1 0%, #ffffff 100%);
+}
+
+.stat-item:nth-child(3) {
+  border-top-color: #e74c3c;
+  background: linear-gradient(135deg, #fdeaea 0%, #ffffff 100%);
+}
+
+.stat-item:nth-child(4) {
+  border-top-color: #f39c12;
+  background: linear-gradient(135deg, #fef5e7 0%, #ffffff 100%);
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.stat-item:nth-child(1) .stat-value {
+  color: #3498db;
+}
+
+.stat-item:nth-child(2) .stat-value {
+  color: #2ecc71;
+}
+
+.stat-item:nth-child(3) .stat-value {
+  color: #e74c3c;
+}
+
+.stat-item:nth-child(4) .stat-value {
+  color: #f39c12;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #546e7a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.overview-financial {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.overview-financial p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  color: #546e7a;
+}
+
+.overview-financial .amount {
+  font-weight: 700;
+  color: #00838f;
+}
+
+.overall-progress-bar {
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+  overflow: hidden;
+}
+
+.overall-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00acc1, #00838f);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .overview-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .overview-stats {
+    grid-template-columns: 1fr;
+  }
+}

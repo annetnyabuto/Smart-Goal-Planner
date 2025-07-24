@@ -1,42 +1,498 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+
+#root{
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #f0f7fa;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  align-items: center;
+  background-color: #f0f7fa;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  position: relative;
+}
+
+main {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Content for non-home pages */
+.content-section {
+  width: 90%;
+  max-width: 1200px;
   padding: 2rem;
+  margin: 0 auto;
+  margin-top: 100px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  text-align: center;
+  color: #00838f;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #00acc1, #00838f);
+  border-radius: 2px;
+}
+
+/* Filter */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: space-between;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter label {
+  margin-right: 0.5rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.filter select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  flex: 1;
+  background-color: white;
+}
+
+/* DepositForm */
+.deposit-form {
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  z-index: 1000;
+}
+
+.deposit-form::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.deposit-form h4 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.goal-details {
+  background-color: #f1f9ff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #3498db;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.goal-details p {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.goal-details strong {
+  color: #2c3e50;
 }
 
-.card {
-  padding: 2em;
+.deposit-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.read-the-docs {
-  color: #888;
+.deposit-form input {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
 }
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.deposit-form button {
+  padding: 0.8rem 1rem;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+  font-weight: 600;
+}
+
+.deposit-form button[type="submit"] {
+  background-color: #2ecc71;
+}
+
+.deposit-form button[type="button"] {
+  background-color: #e74c3c;
+}
+
+.deposit-form button:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.deposit-form button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* GoalList */
+.goal-list {
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.mygoal-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.goal-item {
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.goal-item.completed {
+  border-left: 4px solid #3498db;
+}
+
+.goal-item.warning {
+  border-left: 4px solid #f39c12;
+}
+
+.goal-item.overdue {
+  border-left: 4px solid #e74c3c;
+}
+
+.goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.status {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.status.completed {
+  background-color: #e1f0fa;
+  color: #3498db;
+}
+
+.status.warning {
+  background-color: #fef9e7;
+  color: #f39c12;
+}
+
+.status.overdue {
+  background-color: #fadbd8;
+  color: #e74c3c;
+}
+
+.days-left {
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.goal-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.goal-item h4 {
+  margin: 0 0 0.5rem;
+  color: #34495e;
+}
+
+.goal-item p {
+  margin: 0.3rem 0;
+}
+
+.goal-item form {
+  display: flex;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.goal-item form input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.goal-item .button-group {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.goal-item button {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: white;
+}
+
+.deposit-button {
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.deposit-button:hover {
+  background-color: #7f8c8d;
+  transform: translateY(-2px);
+}
+
+#DeleteBtn {
+  background-color: #e74c3c;
+}
+
+#EditBtn {
+  background-color: #f1c40f;
+}
+
+.goal-item button:hover {
+  opacity: 0.9;
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #3498db;
+  border-radius: 6px;
+  transition: width 0.5s ease-in-out;
+}
+
+.progress-bar-fill.completed {
+  background-color: #3498db;
+}
+
+.progress-bar-fill.overdue {
+  background-color: #e74c3c;
+}
+
+/* Error Message */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border-left: 4px solid #c62828;
+  font-weight: 500;
+}
+
+
+
+/* No Goals Message */
+.no-goals-message {
+  text-align: center;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.no-goals-message p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  padding: 0;
+  background: url('./assets/image10.jpg') center/cover no-repeat;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  z-index: 1;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none; /* This allows clicks to pass through the overlay */
+}
+
+.hero-section h2 {
+  color: white;
+  margin-bottom: 1.5rem;
+  font-size: 4rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 5;
+  padding: 0 1rem;
+}
+
+.hero-section p {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 5;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  padding: 0 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-actions button {
+  padding: 1.2rem 3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #2c3e50;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 10;
+}
+
+.hero-actions button:first-child {
+  background-color: white;
+}
+
+.hero-actions button:last-child {
+  background-color: #f39c12;
+  color: white;
+}
+
+.hero-actions button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+
